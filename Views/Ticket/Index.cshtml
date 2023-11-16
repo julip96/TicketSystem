@@ -1,0 +1,273 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<Ticket>
+@{
+	ViewData["Title"] = "Index";
+}
+
+
+@* ab hier neuer Versuch *@
+
+@* user view *@
+@if (User.IsInRole("user"))
+{
+	<div class="container p-3">
+				<div class="row pt-4">
+					<div class="col-6">
+						<h2>Ticket List</h2>
+					</div>
+				@* search function *@
+									<div class="col-6 text-end">
+							<a asp-controller="Ticket" asp-action="Create" class="btn btn-outline-primary">
+								<i class="bi bi-plus"></i> &nbsp; Create New Ticket
+							</a>
+						</div>
+						<div>
+							<form class="d-flex" method="post" class="searchForm">
+									<input class="form-control me-sm-2" type="search" name="searchString" placeholder="Search"/>
+								<button class="btn btn-secondary my-2 my-sm-0" type="submit" value="Search">Search</button>
+							</form>
+						</div>
+				</div>
+		<br />
+		<table class="table table-bordered table-striped" style="width:100%" >
+			<thead>
+				<tr>
+					<th>
+						Number #
+					</th>
+					<th>
+						Subject
+					</th>
+					<th>
+						Content
+					</th>
+					<th>
+						Status
+					</th>
+		@foreach (var obj in Model.Where(x => x.OwnerID == User.FindFirstValue(ClaimTypes.NameIdentifier)))
+		{
+			<tr>
+				<td width="50%">
+					@obj.ID                        
+				</td>
+				<td width="50%">
+					@obj.TicketSubject                        
+				</td>
+				<td width="30%">
+					@obj.TicketContent                        
+				</td>
+				<td width="30%">
+					@obj.Status                        
+				</td>
+			</tr>
+		}
+		</table>
+		@if (TempData.ContainsKey("NoResultsMessage"))
+		{
+				<p>@TempData["NoResultsMessage"]</p>
+				<div class="w-75 btn-group" role="group">
+					<a asp-controller="Ticket" asp-action="Index">Return to list</a>
+				</div>
+		}
+		</div>
+	}
+
+@* dev view *@
+@if (User.IsInRole("dev"))
+{      
+	<div class="container p-3">
+			<div class="row pt-4">
+				<div class="col-6">
+					<h2>Ticket List</h2>
+				</div>
+			@* search function *@
+								<div class="col-6 text-end">
+						<a asp-controller="Ticket" asp-action="Create" class="btn btn-outline-primary">
+							<i class="bi bi-plus"></i> &nbsp; Create New Ticket
+						</a>
+					</div>
+					<div>
+						<form class="d-flex" method="post" class="searchForm">
+								<input class="form-control me-sm-2" type="search" name="searchString" placeholder="Search"/>
+							<button class="btn btn-secondary my-2 my-sm-0" type="submit" value="Search">Search</button>
+						</form>
+					</div>
+			</div>
+	<br />
+	<table class="table table-bordered table-striped" style="width:100%" >
+		<thead>
+			<tr>
+				<th>
+					Number #
+				</th>
+				<th>
+					Subject
+				</th>
+				<th>
+					Content
+				</th>
+				<th>
+					User
+				</th> 
+								<th>
+									Edit
+								</th>
+								<th>
+									Delete
+								</th>
+								<th>
+									Status
+								</th>
+		 </tr>
+		 </thead>
+		 <tbody>
+		@foreach (var obje in Model)
+		{
+            var user = await UserManager.FindByIdAsync(obje.OwnerID);
+			var userName = user?.UserName;
+
+				<tr>
+			<td width="50%">
+				@obje.ID                        
+			</td>
+			<td width="50%">
+				@obje.TicketSubject                        
+			</td>
+			<td width="30%">
+				@obje.TicketContent                        
+			</td>
+			<td width="30%">
+								<a asp-controller="ManageUsers" asp-action="UserDetails" asp-route-userId="@obje.OwnerID" class="btn btn-outline-secondary">
+				Contact User: @userName
+						</a>
+			</td>
+	
+			<td>
+				<div class="w-75 btn-group" role="group">
+							<a asp-controller="Ticket" asp-action="Edit" asp-route-id="@obje.ID" class="btn btn-outline-secondary">
+						<i class="bi bi-pencil-square"></i> 
+					</a>
+				</div>
+			</td>
+			<td>
+				<div class="w-75 btn-group" role="group">
+									<a asp-controller="Ticket" asp-action="Delete" asp-route-id="@obje.ID" class="btn btn-outline-danger">
+						<i class="bi bi-trash2"></i> 
+					</a>
+				</div>
+			</td>
+
+
+			<td width="50%">
+				@obje.Status                        
+			</td>
+		</tr>
+		}
+		
+	 </tbody>
+
+	</table>
+	@if (TempData.ContainsKey("NoResultsMessage"))
+	{
+		<p>@TempData["NoResultsMessage"]</p>
+		<div class="w-75 btn-group" role="group">
+			<a asp-controller="Ticket" asp-action="Index">Return to list</a>
+		</div>
+	}
+	</div>
+}
+	
+@* admin view *@
+@if (User.IsInRole("admin"))
+{      
+		<div class="container p-3">
+				<div class="row pt-4">
+					<div class="col-6">
+						<h2>Ticket List</h2>
+					</div>
+			@* search function *@
+				<div class="col-6 text-end">
+					<a asp-controller="Ticket" asp-action="Create" class="btn btn-outline-primary">
+						<i class="bi bi-plus"></i> &nbsp; Create New Ticket
+					</a>
+				</div>
+				<div>
+					<form class="d-flex" method="post" class="searchForm">
+							<input class="form-control me-sm-2" type="search" name="searchString" placeholder="Search"/>
+						<button class="btn btn-secondary my-2 my-sm-0" type="submit" value="Search">Search</button>
+					</form>
+				</div>
+			</div>
+		<br />
+		<table class="table table-bordered table-striped" style="width:100%" >
+			<thead>
+				<tr>
+					<th>
+						Number #
+					</th>
+					<th>
+						Subject
+					</th>
+					<th>
+						Content
+					</th> 
+									<th>
+										User
+									</th>
+									<th>
+										Edit
+									</th>
+									<th>
+										Status
+									</th>
+			 </tr>
+			 </thead>
+			 <tbody>
+			@foreach (var obje in Model)
+			{
+				var user = await UserManager.FindByIdAsync(obje.OwnerID);
+				var userName = user?.UserName;
+
+				<tr>
+					<td width="50%">
+						@obje.ID                        
+					</td>
+					<td width="50%">
+						@obje.TicketSubject                        
+					</td>
+					<td width="30%">
+						@obje.TicketContent                        
+					</td> 
+					<td width="30%">
+								<a asp-controller="ManageUsers" asp-action="UserDetails" asp-route-userId="@obje.OwnerID" class="btn btn-outline-secondary">
+							Contact User: @userName
+						</a>
+					</td>
+					<td>
+						<div class="w-75 btn-group" role="group">
+									<a asp-controller="Ticket" asp-action="Edit" asp-route-id="@obje.ID" class="btn btn-outline-secondary">
+								<i class="bi bi-pencil-square"></i> 
+							</a>
+						</div>
+					</td>
+					<td width="50%">
+						@obje.Status                        
+					</td>
+				</tr>
+			}
+
+		 </tbody>
+
+		</table>
+	@if (TempData.ContainsKey("NoResultsMessage"))
+	{
+				<p>@TempData["NoResultsMessage"]</p>
+				<div class="w-75 btn-group" role="group">
+					<a asp-controller="Ticket" asp-action="Index">Return to list</a>
+				</div>
+	}
+	</div>
+}
+	

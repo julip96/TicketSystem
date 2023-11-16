@@ -1,0 +1,31 @@
+﻿
+@model Ticket 
+
+<form method="post" asp-action="Delete">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<div class="col-6">
+			<h2 class="text-primary">Delete Ticket</h2>
+			</div>
+			<div class="col-3">
+				Ticket #: @Model.ID
+			</div>
+			<div class="col-3">
+				Ticket #: @Model.CreationTime
+			</div>
+			<hr />
+		</div>
+		<div class="mb-3">
+			<label asp-for="TicketSubject"></label>
+			<input asp-for="TicketSubject" disabled class="form-control"/>
+		</div>
+		<div class="mb-3">
+			<label asp-for="TicketContent"></label>
+			<input asp-for="TicketContent" disabled class="form-control"/>
+		</div>
+		<button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+		<a asp-controller="Ticket" asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Back to List
+		</a>
+	</div>
+</form>
