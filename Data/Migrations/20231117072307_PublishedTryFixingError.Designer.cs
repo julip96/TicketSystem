@@ -12,8 +12,8 @@ using TicketSystem.Data;
 namespace TicketSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231116075634_EditedTicketModelStatusValue")]
-    partial class EditedTicketModelStatusValue
+    [Migration("20231117072307_PublishedTryFixingError")]
+    partial class PublishedTryFixingError
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

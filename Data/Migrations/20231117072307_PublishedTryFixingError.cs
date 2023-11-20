@@ -5,11 +5,14 @@
 namespace TicketSystem.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class EditedTicketModelStatusValue : Migration
+    public partial class PublishedTryFixingError : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropPrimaryKey("PK_AspNetUserTokens", "AspNetUserTokens");
+            migrationBuilder.DropPrimaryKey("PK_AspNetUserLogins", "AspNetUserLogins");
+
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "AspNetUserTokens",
@@ -45,6 +48,10 @@ namespace TicketSystem.Data.Migrations
                 nullable: false,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)");
+
+            migrationBuilder.AddPrimaryKey("PK_AspNetUserTokens", "AspNetUserTokens", new string[] { "UserId", "LoginProvider", "Name" });
+            migrationBuilder.AddPrimaryKey("PK_AspNetUserLogins", "AspNetUserLogins", new string[] { "LoginProvider", "ProviderKey" });
+
         }
 
         /// <inheritdoc />

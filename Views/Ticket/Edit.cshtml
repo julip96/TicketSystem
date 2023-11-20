@@ -1,5 +1,8 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity;
+
 @model Ticket 
+
+@inject UserManager<IdentityUser> UserManager
 
 <form method="post" asp-action="Edit">
 	<div class="border p-3 mt-4">
@@ -12,7 +15,11 @@
 			<div class="col-6">
 				Ticket #: @Model.ID
 			</div>
-			<div class="col-6">
+			<div class="col-3">
+				@* How do I access the username here? *@
+				Username: @GetUserName(Model.OwnerID)					
+			</div>
+			<div class="col-3">
 				Created: @Model.CreationTime
 			</div>
 		</div>
@@ -54,3 +61,11 @@
 		</div>
 	</div>
 </form>
+
+@functions {
+	string GetUserName(string userId)
+	{
+		var user = UserManager.FindByIdAsync(userId).Result;
+		return user?.UserName;
+	}
+}

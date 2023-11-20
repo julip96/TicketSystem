@@ -31,17 +31,20 @@ namespace TicketSystem.Controllers
 
         public async Task<IActionResult> LoginAsUser()
         {
-            return await Login("user@example.com", "User123!", "User");
+			TempData["success"] = "Login was successful!";
+			return await Login("user@example.com", "User123!", "User");
         }
 
         public async Task<IActionResult> LoginAsAdmin()
         {
-            return await Login("admin@example.com", "Admin123!", "Admin");
+			TempData["success"] = "Login was successful!";
+			return await Login("admin@example.com", "Admin123!", "Admin");
         }
 
         public async Task<IActionResult> LoginAsDev()
         {
-            return await Login("dev@example.com", "Dev123!", "Dev");
+			TempData["success"] = "Login was successful!";
+			return await Login("dev@example.com", "Dev123!", "Dev");
         }
 
         private async Task<IActionResult> Login(string email, string password, string roleName)

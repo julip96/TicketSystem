@@ -49,16 +49,48 @@
 		@foreach (var obj in Model.Where(x => x.OwnerID == User.FindFirstValue(ClaimTypes.NameIdentifier)))
 		{
 			<tr>
-				<td width="50%">
+				<td width="10%">
 					@obj.ID                        
 				</td>
-				<td width="50%">
+				<td width="20%" style="vertical-align:top">
 					@obj.TicketSubject                        
 				</td>
-				<td width="30%">
-					@obj.TicketContent                        
+				<td width="70%"> 
+
+							@if (obj.TicketContent.Length < 300)
+							{
+								<div style="text-align:justify" id="short-content">
+									@obj.TicketContent
+								</div>
+							}
+							else
+							{
+								<div style="text-align:justify" class="short-content" id="short-content">
+									@obj.TicketContent.Substring(0, 300)
+								</div>
+								<div class="long-content" id="long-content" style="display: none; text-align:justify;">
+									@obj.TicketContent
+								</div>
+								<button class="btn btn-outline-primary mt-2" onclick="toggleContentVisibility(this)">show more</button>
+
+								<script>
+									function toggleContentVisibility(button) 
+									{
+										var td = button.parentElement;	
+										var shortContent = td.querySelector('.short-content');
+										var longContent = td.querySelector('.long-content');
+
+										var isShortContentVisible = shortContent.style.display !== 'none';
+
+										shortContent.style.display = isShortContentVisible ? 'none' : 'block';
+										longContent.style.display = isShortContentVisible ? 'block' : 'none';
+
+										button.innerText = isShortContentVisible ? 'show less' : 'show more';
+									}
+								</script>
+							}
 				</td>
-				<td width="30%">
+				<td>
 					@obj.Status                        
 				</td>
 			</tr>
@@ -129,14 +161,46 @@
 			var userName = user?.UserName;
 
 				<tr>
-			<td width="50%">
+			<td width="10%">
 				@obje.ID                        
 			</td>
-			<td width="50%">
+			<td width="20%">
 				@obje.TicketSubject                        
 			</td>
-			<td width="30%">
-				@obje.TicketContent                        
+			<td width="70%"> 
+
+				@if (obje.TicketContent.Length < 300)
+				{
+						<div style="text-align:justify" id="short-content">
+							@obje.TicketContent
+						</div>
+				}
+				else
+				{
+						<div style="text-align:justify" class="short-content" id="short-content">
+							@obje.TicketContent.Substring(0, 300)
+						</div>
+						<div class="long-content" id="long-content" style="display: none; text-align:justify;">
+							@obje.TicketContent
+						</div>
+						<button class="btn btn-outline-primary mt-2" onclick="toggleContentVisibility(this)">show more</button>
+
+						<script>
+							function toggleContentVisibility(button) 
+							{
+								var td = button.parentElement;	
+								var shortContent = td.querySelector('.short-content');
+								var longContent = td.querySelector('.long-content');
+
+								var isShortContentVisible = shortContent.style.display !== 'none';
+
+								shortContent.style.display = isShortContentVisible ? 'none' : 'block';
+								longContent.style.display = isShortContentVisible ? 'block' : 'none';
+
+								button.innerText = isShortContentVisible ? 'show less' : 'show more';
+							}
+						</script>
+				}
 			</td>
 			<td width="30%">
 								<a asp-controller="ManageUsers" asp-action="UserDetails" asp-route-userId="@obje.OwnerID" class="btn btn-outline-secondary">
@@ -231,15 +295,47 @@
 				var userName = user?.UserName;
 
 				<tr>
-					<td width="50%">
+					<td width="10%">
 						@obje.ID                        
 					</td>
-					<td width="50%">
+					<td width="20%">
 						@obje.TicketSubject                        
 					</td>
-					<td width="30%">
-						@obje.TicketContent                        
-					</td> 
+					<td width="70%"> 
+
+							@if (obje.TicketContent.Length < 300)
+							{
+									<div style="text-align:justify" id="short-content">
+									@obje.TicketContent
+									</div>
+							}
+							else
+							{
+									<div style="text-align:justify" class="short-content" id="short-content">
+									@obje.TicketContent.Substring(0, 300)
+									</div>
+									<div class="long-content" id="long-content" style="display: none; text-align:justify;">
+									@obje.TicketContent
+									</div>
+									<button class="btn btn-outline-primary mt-2" onclick="toggleContentVisibility(this)">show more</button>
+
+									<script>
+										function toggleContentVisibility(button) 
+										{
+											var td = button.parentElement;	
+											var shortContent = td.querySelector('.short-content');
+											var longContent = td.querySelector('.long-content');
+
+											var isShortContentVisible = shortContent.style.display !== 'none';
+
+											shortContent.style.display = isShortContentVisible ? 'none' : 'block';
+											longContent.style.display = isShortContentVisible ? 'block' : 'none';
+
+											button.innerText = isShortContentVisible ? 'show less' : 'show more';
+										}
+									</script>
+							}
+					</td>
 					<td width="30%">
 								<a asp-controller="ManageUsers" asp-action="UserDetails" asp-route-userId="@obje.OwnerID" class="btn btn-outline-secondary">
 							Contact User: @userName

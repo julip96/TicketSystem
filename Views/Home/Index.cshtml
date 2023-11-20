@@ -3,27 +3,31 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>to this web application! This ticket system is an example for how to help your employees (users) with their technical issues. If they
+    <h1 class="display-4 mb-4" style="text-align:justify">Welcome</h1>
+    <p style="text-align:justify">to this web application! This ticket system is an example for how to help your employees (users) with their technical issues. If they
         have a problem, they can simply write a ticket. On the other site, your IT employees (admins) can look with what they can help their
         colleagues this day. When they think they have done a good job and got rid of the problem, they can mark it as solved.
     </p>
-    <p>Below you have the possibility to experience this sample of an application in different versions. You can place yourself on the client-side
-        of a user and write a ticket. You can also edit your profile information. </br>
-        It gets more interesting when you login as an admin. Now you can change the status of a ticket and view not only one user's own tickets.. 
-        You can see all of them! </br>
+    <p style="text-align:justify">Below you have the possibility to experience this sample of an application in different versions. You can place yourself on the client-side
+        of a user and write a ticket. You can also edit your profile information. </p>
+    <p style="text-align:justify">It gets more interesting when you login as an admin. Now you can change the status of a ticket and view not only one user's own tickets.. 
+        You can see all of them! 
+    </p>
+    <p style="text-align:justify">
         Let's take it one step further: Become a dev. But beware! With great power comes great responsibility... 
         </p>
-    <p>Enjoy your ride! I'll be happy to hear from your experiences or if you have any recommendations for me :)</p>
-    
+    <p style="text-align:justify">Enjoy your ride! I'll be happy to hear from your experiences or if you have any recommendations for me :)</p>
+    </br>
     @* Test Logins *@
-    <button type="button" class="btn btn-success btn-lg">
-        <a class="nav-link text-light" asp-action="LoginAsUser">Testlogin User</a>
-    </button>
-    <button type="button" class="btn btn-warning btn-lg">
-        <a class="nav-link text-light" asp-action="LoginAsAdmin">Testlogin Admin</a>
-    </button>
-    <button type="button" class="btn btn-danger btn-lg">
-        <a class="nav-link text-light" asp-action="LoginAsDev">Testlogin Dev</a>
-    </button>
+    <div style="text-align:justify">
+        <button type="button" class="btn btn-success btn-lg mr-2">
+            <a class="nav-link text-light" asp-action="LoginAsUser">Testlogin User</a>
+        </button>
+        <button type="button" class="btn btn-warning btn-lg m-2">
+            <a class="nav-link text-light" asp-action="LoginAsAdmin">Testlogin Admin</a>
+        </button>
+        <button type="button" class="btn btn-danger btn-lg m-2">
+            <a class="nav-link text-light" asp-action="LoginAsDev">Testlogin Dev</a>
+        </button>
+    </div>
 </div>

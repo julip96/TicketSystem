@@ -120,16 +120,28 @@ namespace TicketSystem.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Ticket obj)
+        public IActionResult Edit(Ticket updatedTicket)
         {
             if (ModelState.IsValid)
             {
-                _db.Tickets.Update(obj);
+
+                var ticketfromDb = _db.Tickets.Find(updatedTicket.ID);
+
+                if(ticketfromDb == null)
+                {
+                    return NotFound();
+                }
+
+                ticketfromDb.TicketSubject = updatedTicket.TicketSubject;
+                ticketfromDb.TicketContent = updatedTicket.TicketContent;
+                ticketfromDb.Status = updatedTicket.Status;
+
                 _db.SaveChanges();
-                TempData["success"] = "Ticket editet successfully";
+    
+                TempData["success"] = "Ticket edited successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            return View(updatedTicket);
         }
         //GET
         public IActionResult Delete(int? id)
