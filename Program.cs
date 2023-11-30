@@ -25,6 +25,7 @@ namespace TicketSystem
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+            
             // activates fallback
             //builder.Services.AddAuthorization(options =>
             //{
@@ -80,6 +81,7 @@ namespace TicketSystem
             }
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
+            
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
